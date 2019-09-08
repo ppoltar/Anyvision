@@ -18,10 +18,10 @@
 
 ##Screenshots
 
-*![alt tag](https://github.com/ppoltar/Anyvision/blob/master/Screenshots/server.png)
-*![alt tag](https://github.com/ppoltar/Anyvision/blob/master/Screenshots/client_Pasha.png)
-*![alt tag](https://github.com/ppoltar/Anyvision/blob/master/Screenshots/client_Sivan.png)
-*![alt tag](https://github.com/ppoltar/Anyvision/blob/master/Screenshots/logger.png)
+![alt tag](https://github.com/ppoltar/Anyvision/blob/master/Screenshots/server.png)
+![alt tag](https://github.com/ppoltar/Anyvision/blob/master/Screenshots/client_Pasha.png)
+![alt tag](https://github.com/ppoltar/Anyvision/blob/master/Screenshots/client_Sivan.png)
+![alt tag](https://github.com/ppoltar/Anyvision/blob/master/Screenshots/logger.png)
 
 
 ##Note
