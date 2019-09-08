@@ -11,10 +11,10 @@
 * ./server.py
 * ./client.py <Name>  (for example: ./client.py Pasha)
 ##Screenshots
-*![alt tag](https://github.com/ppoltar/Anyvision/blob/master/server.png)
-*![alt tag](https://github.com/ppoltar/Anyvision/blob/master/client_Pasha.png)
-*![alt tag](https://github.com/ppoltar/Anyvision/blob/master/client_Sivan.png)
-*![alt tag]()
+*![alt tag](https://github.com/ppoltar/Anyvision/blob/master/Screenshots/server.png)
+*![alt tag](https://github.com/ppoltar/Anyvision/blob/master/Screenshots/client_Pasha.png)
+*![alt tag](https://github.com/ppoltar/Anyvision/blob/master/Screenshots/client_Sivan.png)
+*![alt tag](https://github.com/ppoltar/Anyvision/blob/master/Screenshots/logger.png)
 ##Note
 * "Allow user to set client name from user input or config file", I have implemented with user input (argv).
 * "client or list of clients to distribute a message" - I didn't really understand how the client choose the users he wants to send the message to,
