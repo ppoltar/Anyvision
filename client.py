@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-#title           :server.py
+#title           :client.py
 #description     :Python program to implement client side of chat room.
 #author          :Pasha.P
 #date            :8.9.2019
@@ -27,6 +27,11 @@ while True:
 
 	# maintains a list of possible input streams
 	sockets_list = [sys.stdin, server]
+
+	"""" There are two possible input situations.if the server wants 
+	to send a message, then the if condition will hold true 
+	below.If the user wants to send a message, the else 
+	condition will evaluate as true """
 
 	read_sockets,write_socket, error_socket = select.select(sockets_list,[],[])
 

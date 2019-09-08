@@ -5,18 +5,22 @@
 #date            :8.9.2019
 #python_version  :3.6
 #==============================================================================
+import shutil
 import socket,os,datetime,pickle
 from _thread import start_new_thread
 from apscheduler.schedulers.background import BackgroundScheduler
 sched = BackgroundScheduler()
 
+# Create a TCP/IP socket
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
 IP_ADDRESS = '127.0.0.1'
 PORT = 65432
 ACTIVE_CONNECTION = 100
-
+#max size of log file
+MAX_LOG_SIZE = 1000000
+index_of_log=0
 dictionary_of_times = { }
 list_of_clients = []
 
@@ -26,15 +30,20 @@ server.bind((IP_ADDRESS, PORT))
 #listens for ACTIVE_CONNECTION active connections.
 server.listen(ACTIVE_CONNECTION)
 
-#remove old log file in the run folder
-if os.path.exists("./logger.txt"):
-    os.remove("./logger.txt")
-
+""" Function that save the chat to log file, if the log size max than MAX_LOG_SIZE, 
+store the file to new file """
 def log_file(msg):
+    date = str(datetime.datetime.now().strftime("%d/%m/%Y "))
     with open("logger.txt", "a") as log:
-        log.writelines(msg)
+        log.writelines(date + msg)
+    if os.path.getsize("./logger.txt") > MAX_LOG_SIZE:
+        global index_of_log
+        index_of_log +=1
+        shutil.copy("./logger.txt",str(index_of_log) + "_logger.txt")
+        os.remove("./logger.txt")
     pass
 
+#function that remove user if he does not active more than 1 minute
 def check_time_to_disconnect():
     server_time = datetime.datetime.now().strftime("%H:%M:%S")
     for k,v in dictionary_of_times.items():
@@ -46,11 +55,9 @@ sched.add_job(check_time_to_disconnect, 'interval', seconds=1)
 sched.start()
 
 def clientthread(conn, addr):
-
     conn.send(("Welcome to this chatroom!").encode())
 
     while True:
-
 
             try:
                 message = conn.recv(2048)
@@ -64,7 +71,6 @@ def clientthread(conn, addr):
                     log_file(message_to_send)
                     #Calls broadcast function to send message to all
                     broadcast(message_to_send, conn)
-
                 else:
                     #Message may have no content if the connection is broken, in this case we remove the connection
                     remove(conn)
@@ -73,7 +79,7 @@ def clientthread(conn, addr):
     pass
 
 
-#Function to broadcast the message to clients who's is not the same as the one sending the message "
+#Function to broadcast the message to clients who's is not the same as the one sending the message
 def broadcast(message, connection):
     print(message)
 
@@ -87,7 +93,7 @@ def broadcast(message, connection):
                 remove(clients)
     pass
 
-#The following function removes the object from the list of clients"""
+#The following function removes the object from the list of clients
 def remove(connection):
     if connection in list_of_clients:
         connection.send((str(datetime.datetime.now().strftime("%H:%M:%S")) + " You are now disconnected, Bye!").encode())
